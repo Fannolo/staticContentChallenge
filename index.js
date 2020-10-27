@@ -6,8 +6,8 @@ var server = http;
 var Mustache = require("mustache");
 const { Buffer } = require("buffer");
 
-var showdown = require("showdown"),
-  converter = new showdown.Converter();
+var showdown = require("showdown");
+var converter = new showdown.Converter();
 
 //onRequest callback to render the stuff
 async function onRequest(request, response) {
@@ -16,7 +16,7 @@ async function onRequest(request, response) {
   //all request to / renders the template without any other informations
   if (request.url == "/") {
     response.writeHead(200, { "Content-Type": "text/html" });
-    response.write(fs.readFileSync("template.html", "utf8"));
+    response.write(fs.readFileSync("./template.html", "utf8"));
   } else if (ext) {
     //all requests that includes .ico .css .js
     if (ext != ".ico") {
@@ -40,18 +40,18 @@ async function onRequest(request, response) {
         await request.on("end", function () {
           var json = Buffer.concat(data);
           var jobData = JSON.parse(json);
-          response.write(
-            Mustache.render(fs.readFileSync("template.html", "utf8"), {
-              content: converter?.makeHtml(jobData?.markdown),
-            })
-          );
+        //   response.write(
+        //     Mustache.render(fs.readFileSync("./template.html", "utf8"), {
+        //       content: converter?.makeHtml(jobData?.markdown),
+        //     })
+        //   );
           response.end();
         });
       } else {
-        let pathNameToRender = __dirname + "/content" + pathname + "/index.md";
+        let pathNameToRender = "./content" + pathname + "/index.md";
         let fileToRender = fs.readFileSync(pathNameToRender, "utf8");
         response.write(
-          Mustache.render(fs.readFileSync("template.html", "utf8"), {
+          Mustache.render(fs.readFileSync("./template.html", "utf8"), {
             content: converter.makeHtml(fileToRender),
           })
         );
