@@ -40,11 +40,11 @@ async function onRequest(request, response) {
         await request.on("end", function () {
           var json = Buffer.concat(data);
           var jobData = JSON.parse(json);
-          //   response.write(
-          //     Mustache.render(fs.readFileSync("./template.html", "utf8"), {
-          //       content: converter?.makeHtml(jobData?.markdown),
-          //     })
-          //   );
+            response.write(
+              Mustache.render(fs.readFileSync("./template.html", "utf8"), {
+                content: converter?.makeHtml(jobData?.markdown),
+              })
+            );
           response.end();
         });
       } else {
