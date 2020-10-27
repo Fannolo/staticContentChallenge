@@ -4,7 +4,7 @@
   "description": "**NB: Please do not fork this repository, to avoid your solution being visible from this repository's GitHub page. Please clone this repository and submit your solution as a separate repository.**",
   "main": "index.js",
   "scripts": {
-    "start": "SET NODE_ENV=dev && node server.js",
+    "start": "node index.js",
     "test": "mocha --timeout 10000"
   },
   "author": "",
