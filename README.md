@@ -29,3 +29,7 @@ In this MVP sprint, there are two nice-to-have tickets:
 
 * The generated HTML page should be styled in a pleasing way
 * The MVP's GitHub repository should be configured for hosting on a cloud hosting service, and include a link to a live deployment
+
+
+## The app is hosted on Heroku and accessible through this link
+* https://thawing-crag-94615.herokuapp.com/about-page
