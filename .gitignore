@@ -24,4 +24,4 @@ node_modules/
 .eslintcache
 
 # Stores VSCode versions used for testing VSCode extensions
-.vscode-test
+.vscode-testnode_modules
