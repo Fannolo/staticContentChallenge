@@ -4,6 +4,7 @@ var url = require("url");
 var path = require("path");
 var server = http;
 var Mustache = require("mustache");
+const { Buffer } = require("buffer");
 
 var showdown = require("showdown"),
   converter = new showdown.Converter();
@@ -24,6 +25,7 @@ async function onRequest(request, response) {
       } else if (ext === ".js") {
         response.writeHead(200, { "Content-Type": "text/js" });
       }
+      response.end();
     }
   } else {
     //write in the response the file rendered in index.md
@@ -31,14 +33,19 @@ async function onRequest(request, response) {
     try {
       //   console.log(request);
       if (request.method == "POST") {
+        let data = [];
         await request.on("data", function (chunk) {
-          let data = JSON?.parse(chunk?.toString())?.markdown;
-
+          data.push(chunk);
+        });
+        await request.on("end", function () {
+          var json = Buffer.concat(data);
+          var jobData = JSON.parse(json);
           response.write(
             Mustache.render(fs.readFileSync("template.html", "utf8"), {
-              content: converter.makeHtml(data),
+              content: converter.makeHtml(jobData?.markdown),
             })
           );
+          response.end();
         });
       } else {
         let pathNameToRender = __dirname + "/content" + pathname + "/index.md";
@@ -48,12 +55,13 @@ async function onRequest(request, response) {
             content: converter.makeHtml(fileToRender),
           })
         );
+        response.end();
       }
     } catch (e) {
       response.writeHead(404, { "Content-Type": "text/plain" });
+      response.end();
     }
   }
-  response.end();
 }
 
 //Start the node server to liste on the port 8080
