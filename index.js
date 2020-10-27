@@ -42,7 +42,7 @@ async function onRequest(request, response) {
           var jobData = JSON.parse(json);
           response.write(
             Mustache.render(fs.readFileSync("template.html", "utf8"), {
-              content: converter.makeHtml(jobData?.markdown),
+              content: converter?.makeHtml(jobData?.markdown),
             })
           );
           response.end();
