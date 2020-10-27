@@ -40,11 +40,11 @@ async function onRequest(request, response) {
         await request.on("end", function () {
           var json = Buffer.concat(data);
           var jobData = JSON.parse(json);
-        //   response.write(
-        //     Mustache.render(fs.readFileSync("./template.html", "utf8"), {
-        //       content: converter?.makeHtml(jobData?.markdown),
-        //     })
-        //   );
+          //   response.write(
+          //     Mustache.render(fs.readFileSync("./template.html", "utf8"), {
+          //       content: converter?.makeHtml(jobData?.markdown),
+          //     })
+          //   );
           response.end();
         });
       } else {
@@ -65,6 +65,8 @@ async function onRequest(request, response) {
 }
 
 //Start the node server to liste on the port 8080
-server.createServer(onRequest).listen(8080);
+server.createServer(onRequest).listen(process.env.PORT || 8080);
 
-module.exports = server.createServer(onRequest).listen(3000);
+module.exports = server
+  .createServer(onRequest)
+  .listen(process.env.PORT || 3000);
