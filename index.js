@@ -32,11 +32,11 @@ async function onRequest(request, response) {
       //   console.log(request);
       if (request.method == "POST") {
         await request.on("data", function (chunk) {
+          let data = JSON?.parse(chunk?.toString())?.markdown;
+
           response.write(
             Mustache.render(fs.readFileSync("template.html", "utf8"), {
-              content: converter.makeHtml(
-                JSON.parse(chunk?.toString())?.markdown
-              ),
+              content: converter.makeHtml(data),
             })
           );
         });
