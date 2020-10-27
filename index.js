@@ -65,7 +65,7 @@ async function onRequest(request, response) {
 }
 
 //Start the node server to liste on the port 8080
-server.createServer(onRequest).listen(process.env.PORT || 8080);
+//server.createServer(onRequest).listen(process.env.PORT || 8080);
 
 module.exports = server
   .createServer(onRequest)
