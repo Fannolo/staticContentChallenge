@@ -25,3 +25,4 @@ node_modules/
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-testnode_modules
+npm-debug.log
